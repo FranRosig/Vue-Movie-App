@@ -2,7 +2,7 @@
   <div class="home">
     <div class="feature-card">
       <router-link to="/movie/tt3896198">
-        <img src="https://m.media-amazon.com/images/M/MV5BNjM0NTc0NzItM2FlYS00YzEwLWE0YmUtNTA2ZWIzODc2OTgxXkEyXkFqcGdeQXVyNTgwNzIyNzg@._V1_SX300.jpg" 
+        <img src="https://images8.alphacoders.com/617/617965.jpg" 
         alt=""
         class="featured-img">
         <div class="detail">
@@ -11,11 +11,6 @@
         </div>
       </router-link>
     </div>
-
-    <form @submit.prevent="SearchMovies()" class="search-box">
-      <input type="text" placeholder="What are you looking for?" v-model="search" >
-      <input type="submit" value="Search">
-    </form>
 
     <div class="movies-list">
       <div class="movie" v-for="movie in movies" :key="movie.imdbID">
@@ -35,44 +30,37 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-import env from "@/env.js"
+import {computed} from "vue"
+import {useStore} from "vuex"
 
-export default {
-  setup() {
-    const search = ref("");
-    const movies = ref([]);
+  export default {
+    setup() {
+      const myStore = useStore();
+      const movies = computed (() => myStore.state.movies)
 
-    const SearchMovies = () => {
-      if (search.value != "") {
-        fetch(`http://www.omdbapi.com/?apikey=${env.apikey}&s=${search.value}`)
-        .then(response => response.json())
-        .then(data => {
-          movies.value = data.Search;
-          search.value = "";
-        })
+      return {
+        movies
       }
     }
 
-    return {
-      search,
-      movies,
-      SearchMovies
-    }
   }
-}
 </script>
 
 <style lang="scss">
 .home{
+
+  max-width: 1300px;
+  width: 100%;
+
   .feature-card {
     position: relative;
 
     .featured-img {
       display: block;
       width: 100%;
-      height: 300px;
+      height: 600px;
       object-fit: cover;
+      object-position: top;
 
       position: relative;
       z-index:0
@@ -94,6 +82,7 @@ export default {
 
       p {
         color:white;
+        font-family: "Avenir, Helvetica, arial, sans-serif";
       }
     }
   }
