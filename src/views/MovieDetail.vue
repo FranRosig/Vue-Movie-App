@@ -1,6 +1,6 @@
 <template>
   <div class="movie-detail">
-    <img :src="movie.Poster" alt="Movie Poster" class="featured-image">
+    <img :src="movie.Poster" class="featured-image">
     <div>
       <h2>{{movie.Title}}</h2>
       <p>{{movie.Year}}</p>
@@ -35,6 +35,7 @@ export default {
 </script>
 
 <style lang="scss">
+
 .movie-detail {
     padding: 16px;
     max-width: 600px;
