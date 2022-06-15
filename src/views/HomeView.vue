@@ -12,7 +12,7 @@
       </router-link>
     </div>
 
-    <div class="movies-list">
+    <div class="movies-list" v-if="movies">
       <div class="movie" v-for="movie in movies" :key="movie.imdbID">
         <router-link :to="'/movie/' + movie.imdbID" class="movie-link">
         <div class="product-image">
@@ -26,20 +26,36 @@
         </router-link>
       </div>
     </div>
+
+    <div v-else >
+      <h3 class="selection-h3">Nuestra selección para ti...</h3>
+      <div class="lowerSection">
+        <my-carousel :selectionMovies="selectionMovies"></my-carousel>
+        <div class="asd">
+          <img src="https://hipertextual.com/wp-content/uploads/2019/05/hipertextual-avengers-endgame-actriz-que-tuvo-que-regrabar-todas-sus-escenas-2019426659.jpg" alt="">
+        </div>
+      </div>
+    </div>
   </div>
+
 </template>
 
 <script>
 import {computed} from "vue"
 import {useStore} from "vuex"
+import selection from "../selection"
+import MyCarousel from "../Carousel/MyCarousel.vue"
 
   export default {
+    components: { MyCarousel },
     setup() {
       const myStore = useStore();
       const movies = computed (() => myStore.state.movies)
+      const selectionMovies = selection
 
       return {
-        movies
+        movies,
+        selectionMovies
       }
     }
 
@@ -47,6 +63,33 @@ import {useStore} from "vuex"
 </script>
 
 <style lang="scss">
+
+.lowerSection {
+  display: flex;
+  flex-wrap: wrap;
+  height: 400px;
+  gap: 15px;
+}
+
+.asd {
+  background-color: red;
+  width: auto;
+  height: 100%;
+
+}
+
+.asd img {
+  object-fit: cover;
+  object-position: top;
+  width: 100%;
+  height: 100%;
+}
+
+.selection-h3 {
+  color: white;
+  padding: 15px;
+}
+
 .home{
 
   max-width: 1300px;
@@ -58,7 +101,7 @@ import {useStore} from "vuex"
     .featured-img {
       display: block;
       width: 100%;
-      height: 600px;
+      height: 400px;
       object-fit: cover;
       object-position: top;
 

@@ -1,7 +1,7 @@
 <template>
   <header>
 
-    <router-link to="/">
+    <router-link to="/" @click="resetMovies">
       <h1><span>Vue</span>Movies</h1>
     </router-link>
 
@@ -43,10 +43,15 @@ export default {
       }
     }
 
+    const resetMovies = () => {
+      store.dispatch("resetMovies")
+    }
+
     return {
       search,
       SearchMovies,
-      movies
+      movies,
+      resetMovies,
     }
   }
 }
@@ -67,7 +72,7 @@ export default {
   }
 
   body {
-    background-color: #35495E;
+    background-color: #141414;
   }
 
   main {
@@ -85,8 +90,9 @@ export default {
     align-items: center;
     justify-content: center;
     padding: 10px 16px;
-    background-color: #2C3D4E;
+    background-color: #141414;
     box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
+    background-image: linear-gradient(to bottom,rgba(0,0,0,.7) 10%,rgba(0,0,0,0));;
   }
 
   h1 {
