@@ -8,6 +8,7 @@ export default createStore ({
     mutations: {
         SET_MOVIES(state, movies) {
             state.movies = movies
+            console.log(movies)
         },
         RESET_MOVIES(state) {
             state.movies = null

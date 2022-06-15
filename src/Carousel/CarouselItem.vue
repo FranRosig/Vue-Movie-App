@@ -1,7 +1,7 @@
 <template>
     <transition name="slide-in">
         <div v-show="currentSlide === index">
-            <img :src="movie.img">
+            <img :src="movie.image">
         </div>
     </transition>
 </template>
@@ -20,8 +20,8 @@
         left: 0;
         right: 0;
         bottom: 0;
-        width: 100%;
-        height: 100%;
+        width: 300px;
+        height: 400px;
     }
 
     img {

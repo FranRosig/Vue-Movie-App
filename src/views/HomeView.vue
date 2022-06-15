@@ -28,14 +28,38 @@
     </div>
 
     <div v-else >
-      <h3 class="selection-h3">Nuestra selección para ti...</h3>
-      <div class="lowerSection">
-        <my-carousel :selectionMovies="selectionMovies"></my-carousel>
-        <div class="asd">
-          <img src="https://hipertextual.com/wp-content/uploads/2019/05/hipertextual-avengers-endgame-actriz-que-tuvo-que-regrabar-todas-sus-escenas-2019426659.jpg" alt="">
+      <h1 class="latest">Latest Movies</h1>
+      <div class="movies-list" v-if="homeMovies">
+      <div class="movie" v-for="movie in homeMovies" :key="movie.imdbID">
+        <router-link :to="'/movie/' + movie.imdbID" class="movie-link">
+        <div class="product-image">
+          <img :src="movie.Poster" alt="Movie Poster" />
         </div>
+        <div class="detail">
+          <p class="year">{{movie.Year}}</p>
+          <h3>{{movie.Title}}</h3>
+        </div>
+        </router-link>
       </div>
     </div>
+      <h1 class="latest latest_series">Latest Series</h1>
+      <div class="movies-list" v-if="homeSeries">
+      <div class="movie" v-for="serie in homeSeries" :key="serie.imdbID">
+        <router-link :to="'/movie/' + serie.imdbID" class="movie-link">
+        <div class="product-image">
+          <img :src="serie.Poster" alt="Movie Poster" />
+        </div>
+        <div class="detail">
+          <p class="year">{{serie.Year}}</p>
+          <h3>{{serie.Title}}</h3>
+        </div>
+        </router-link>
+      </div>
+    </div>
+      <!-- <my-carousel :selectionMovies="selectionMovies"></my-carousel> -->
+    </div>
+    
+
   </div>
 
 </template>
@@ -43,19 +67,22 @@
 <script>
 import {computed} from "vue"
 import {useStore} from "vuex"
-import selection from "../selection"
-import MyCarousel from "../Carousel/MyCarousel.vue"
+import defaultMovies from "../defaultMovies"
+import defaultSeries from "../defaultSeries"
+// import MyCarousel from "../Carousel/MyCarousel.vue"
 
   export default {
-    components: { MyCarousel },
+    // components: { MyCarousel },
     setup() {
       const myStore = useStore();
       const movies = computed (() => myStore.state.movies)
-      const selectionMovies = selection
+      const homeMovies = defaultMovies
+      const homeSeries = defaultSeries
 
       return {
         movies,
-        selectionMovies
+        homeMovies,
+        homeSeries
       }
     }
 
@@ -64,30 +91,14 @@ import MyCarousel from "../Carousel/MyCarousel.vue"
 
 <style lang="scss">
 
-.lowerSection {
-  display: flex;
-  flex-wrap: wrap;
-  height: 400px;
-  gap: 15px;
-}
-
-.asd {
-  background-color: red;
-  width: auto;
-  height: 100%;
-
-}
-
-.asd img {
-  object-fit: cover;
-  object-position: top;
-  width: 100%;
-  height: 100%;
-}
-
-.selection-h3 {
+.latest {
   color: white;
-  padding: 15px;
+  padding-top: 16px;
+  padding-left: 8px;
+}
+
+.latest_series {
+  padding-top: 8px;
 }
 
 .home{
@@ -185,9 +196,10 @@ import MyCarousel from "../Carousel/MyCarousel.vue"
     display: flex;
     flex-wrap: wrap;
     margin: 0px 8px;
+    justify-content: center;
 
     .movie {
-      max-width: 50%;
+      max-width: 250px;
       flex: 1 1 50%;
       padding: 16px 8px;
 
@@ -219,7 +231,8 @@ import MyCarousel from "../Carousel/MyCarousel.vue"
         }
 
         .detail {
-          background-color: #496583;
+          background-color: #141414;
+          background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 10%, rgba(0, 0, 0, 0));
           padding: 16px 8px;
           flex: 1 1 100%;
           border-radius: 0px 0px 8px 8px;
