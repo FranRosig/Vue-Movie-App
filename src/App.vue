@@ -65,7 +65,7 @@ export default {
   margin:0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Avenir, Helvetica, arial, sans-serif";
+  font-family: 'Roboto', sans-serif;
 
   &::selection {
     background: transparentize(#42B883, 0.5);

@@ -136,7 +136,7 @@ import defaultSeries from "../defaultSeries"
 
       p {
         color:white;
-        font-family: "Avenir, Helvetica, arial, sans-serif";
+        font-family: 'Roboto', sans-serif;
       }
     }
   }
